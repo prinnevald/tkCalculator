@@ -14,32 +14,44 @@ def main():
 
     field = Entry(root, width=35, borderwidth=5)
     field.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+    
+    # functions for buttons
 
-    # function for buttons
-
-    def but_c(number):
+    def num(number):
+        field.insert(END, number)
+        
+    def clear():
         field.delete(0, END)
-        field.insert(0, number)
+        
+    def add():
+        global mem
+        mem = int(field.get())
+        field.delete(0, END)
+    
+    def equal():
+        answer = mem + int(field.get())
+        field.delete(0, END)
+        field.insert(0, answer)
 
     # creating buttons
 
-    b_1 = Button(root, text="1", padx=40, pady=20, command=lambda:but_с(1))
-    b_2 = Button(root, text="2", padx=40, pady=20, command=lambda:but_с(2))
-    b_3 = Button(root, text="3", padx=40, pady=20, command=lambda:but_с(3))
+    b_1 = Button(root, text="1", padx=40, pady=20, command=lambda:num(1))
+    b_2 = Button(root, text="2", padx=40, pady=20, command=lambda:num(2))
+    b_3 = Button(root, text="3", padx=40, pady=20, command=lambda:num(3))
 
-    b_4 = Button(root, text="4", padx=40, pady=20, command=lambda:but_с(4))
-    b_5 = Button(root, text="5", padx=40, pady=20, command=lambda:but_с(5))
-    b_6 = Button(root, text="6", padx=40, pady=20, command=lambda:but_с(6))
+    b_4 = Button(root, text="4", padx=40, pady=20, command=lambda:num(4))
+    b_5 = Button(root, text="5", padx=40, pady=20, command=lambda:num(5))
+    b_6 = Button(root, text="6", padx=40, pady=20, command=lambda:num(6))
 
-    b_7 = Button(root, text="7", padx=40, pady=20, command=lambda:but_с(7))
-    b_8 = Button(root, text="8", padx=40, pady=20, command=lambda:but_с(8))
-    b_9 = Button(root, text="9", padx=40, pady=20, command=lambda:but_с(9))
+    b_7 = Button(root, text="7", padx=40, pady=20, command=lambda:num(7))
+    b_8 = Button(root, text="8", padx=40, pady=20, command=lambda:num(8))
+    b_9 = Button(root, text="9", padx=40, pady=20, command=lambda:num(9))
 
-    b_0 = Button(root, text="0", padx=40, pady=20, command=lambda:but_с(0))
+    b_0 = Button(root, text="0", padx=40, pady=20, command=lambda:num(0))
 
-    b_add = Button(root, text="+", padx=39, pady=20, command=lambda:but_с())
-    b_eq = Button(root, text="=", padx=91, pady=20, command=lambda:but_с())
-    b_c = Button(root, text="Clear", padx=79, pady=20, command=lambda:but_с())
+    b_add = Button(root, text="+", padx=39, pady=20, command=add)
+    b_eq = Button(root, text="=", padx=91, pady=20, command=equal)
+    b_c = Button(root, text="Clear", padx=79, pady=20, command=clear)
 
     # arranging buttons in the window
 
@@ -61,6 +73,7 @@ def main():
     b_c.grid(row=4, column=1, columnspan=2)
     b_eq.grid(row=5, column=1, columnspan=2)
     
+    root.resizable(width=False, height=False)
     root.mainloop()
 
 
