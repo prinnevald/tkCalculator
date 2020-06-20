@@ -1,5 +1,9 @@
 from tkinter import *
-from tkinter import ttk
+
+class Memory(object):
+    def __init__(self):
+        self.memory = 0
+        self.action = "null"
 
 # main function
 
@@ -15,25 +19,59 @@ def main():
     field = Entry(root, width=35, borderwidth=5)
     field.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
     
+    # memory allocation
+    
+    m = Memory()
+    
     # functions for buttons
 
     def num(number):
         field.insert(END, number)
         
-    def clear():
+    def add(mem):
+        mem.action = "add"
+        mem.memory = float(field.get())
         field.delete(0, END)
         
-    def add():
-        global mem
-        mem = int(field.get())
+    def sub(mem):
+        mem.action = "sub"
+        mem.memory = float(field.get())
         field.delete(0, END)
     
-    def equal():
-        answer = mem + int(field.get())
+    def mul(mem):
+        mem.action = "mul"
+        mem.memory = float(field.get())
         field.delete(0, END)
-        field.insert(0, answer)
+    
+    def div(mem):
+        mem.action = "div"
+        mem.memory = float(field.get())
+        field.delete(0, END)
+        
+    def dot():
+        field.insert(END, ".")
+    
+    def equal(mem):
+        num = float(field.get())
+        field.delete(0, END)
 
-    # creating buttons
+        if mem.action == "add":
+            field.insert(0, mem.memory + num)
+        elif mem.action == "sub":
+            field.insert(0, mem.memory - num)
+        elif mem.action == "mul":
+            field.insert(0, mem.memory * num)
+        elif mem.action == "div":
+            field.insert(0, mem.memory / num)
+        else:
+            field.insert(0, "ERROR! Clear and try again.")
+    
+    def clear(mem):
+        mem.memory = 0
+        mem.action = None
+        field.delete(0, END)
+
+    # creating buttons numbers
 
     b_1 = Button(root, text="1", padx=40, pady=20, command=lambda:num(1))
     b_2 = Button(root, text="2", padx=40, pady=20, command=lambda:num(2))
@@ -47,11 +85,20 @@ def main():
     b_8 = Button(root, text="8", padx=40, pady=20, command=lambda:num(8))
     b_9 = Button(root, text="9", padx=40, pady=20, command=lambda:num(9))
 
-    b_0 = Button(root, text="0", padx=40, pady=20, command=lambda:num(0))
+    b_0 = Button(root, text="0", padx=89, pady=20, command=lambda:num(0))
 
-    b_add = Button(root, text="+", padx=39, pady=20, command=add)
-    b_eq = Button(root, text="=", padx=91, pady=20, command=equal)
-    b_c = Button(root, text="Clear", padx=79, pady=20, command=clear)
+    # operations
+
+    b_add = Button(root, text="+", padx=89, pady=20, command=lambda:add(m))
+    b_sub = Button(root, text="-", padx=90, pady=20, command=lambda:sub(m))
+    b_mul = Button(root, text="*", padx=39, pady=20, command=lambda:mul(m))
+    b_div = Button(root, text="/", padx=39, pady=20, command=lambda:div(m))
+
+    # other actions
+
+    b_dot = Button(root, text=".", padx=40, pady=20, command=dot)
+    b_eq = Button(root, text="=", padx=39, pady=20, command=lambda:equal(m))
+    b_c = Button(root, text="Clear", padx=79, pady=20, command=lambda:clear(m))
 
     # arranging buttons in the window
 
@@ -67,15 +114,19 @@ def main():
     b_8.grid(row=1, column=1)
     b_9.grid(row=1, column=2)
 
-    b_0.grid(row=4, column=0)
+    b_0.grid(row=4, column=0, columnspan=2)
 
-    b_add.grid(row=5, column=0)
-    b_c.grid(row=4, column=1, columnspan=2)
-    b_eq.grid(row=5, column=1, columnspan=2)
+    b_add.grid(row=5, column=0, columnspan=2)
+    b_sub.grid(row=6, column=0, columnspan=2)
+    b_mul.grid(row=5, column=2)
+    b_div.grid(row=6, column=2)
+    
+    b_dot.grid(row=4, column=2)
+    b_eq.grid(row=7, column=2)
+    b_c.grid(row=7, column=0, columnspan=2)
     
     root.resizable(width=False, height=False)
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
