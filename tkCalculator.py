@@ -19,8 +19,8 @@ def main():
 
     # field for the text to go
 
-    field = Entry(root, width=35, borderwidth=5)
-    field.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+    field = Entry(root, font="Calibri 20", width=30, borderwidth=5)
+    field.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
     
     # memory allocation
     
