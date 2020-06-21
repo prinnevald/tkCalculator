@@ -1,11 +1,14 @@
 from tkinter import *
+import math
+
+# defing the memory of operations and number
 
 class Memory(object):
     def __init__(self):
         self.memory = 0
-        self.action = "null"
+        self.action = None
 
-# main function
+### MAIN ###
 
 def main():
 
@@ -48,6 +51,11 @@ def main():
         mem.memory = float(field.get())
         field.delete(0, END)
         
+    def sqr(mem):
+        temp = float(field.get())
+        field.delete(0, END)
+        field.insert(0, math.sqrt(temp))
+        
     def dot():
         field.insert(END, ".")
     
@@ -89,16 +97,17 @@ def main():
 
     # operations
 
-    b_add = Button(root, text="+", padx=89, pady=20, command=lambda:add(m))
-    b_sub = Button(root, text="-", padx=90, pady=20, command=lambda:sub(m))
+    b_add = Button(root, text="+", padx=39, pady=20, command=lambda:add(m))
+    b_sub = Button(root, text="-", padx=40, pady=20, command=lambda:sub(m))
     b_mul = Button(root, text="*", padx=39, pady=20, command=lambda:mul(m))
     b_div = Button(root, text="/", padx=39, pady=20, command=lambda:div(m))
+    b_sqr = Button(root, text="sqrt", padx=32, pady=20, command=lambda:sqr(m))
 
     # other actions
 
-    b_dot = Button(root, text=".", padx=40, pady=20, command=dot)
-    b_eq = Button(root, text="=", padx=39, pady=20, command=lambda:equal(m))
-    b_c = Button(root, text="Clear", padx=79, pady=20, command=lambda:clear(m))
+    b_dot = Button(root, text=".", padx=41, pady=20, command=dot)
+    b_eq = Button(root, text="=", padx=38, pady=51, command=lambda:equal(m))
+    b_c = Button(root, text="Clear", padx=29, pady=20, command=lambda:clear(m))
 
     # arranging buttons in the window
 
@@ -116,14 +125,15 @@ def main():
 
     b_0.grid(row=4, column=0, columnspan=2)
 
-    b_add.grid(row=5, column=0, columnspan=2)
-    b_sub.grid(row=6, column=0, columnspan=2)
-    b_mul.grid(row=5, column=2)
-    b_div.grid(row=6, column=2)
-    
+    b_add.grid(row=1, column=3)
+    b_sub.grid(row=2, column=3)
+    b_mul.grid(row=1, column=4)
+    b_div.grid(row=2, column=4)
+    b_sqr.grid(row=3, column=3)
+
     b_dot.grid(row=4, column=2)
-    b_eq.grid(row=7, column=2)
-    b_c.grid(row=7, column=0, columnspan=2)
+    b_eq.grid(row=3, column=4, rowspan=2)
+    b_c.grid(row=4, column=3)
     
     root.resizable(width=False, height=False)
     root.mainloop()
